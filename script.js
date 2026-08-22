@@ -1,3 +1,43 @@
+// —— UX: scroll nav + reveal + music ——
+const nav = document.querySelector('.nav');
+window.addEventListener('scroll', () => {
+  nav?.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) {
+      e.target.classList.add('show');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach((el) => io.observe(el));
+
+const audio = document.getElementById('bg-audio');
+const musicBtn = document.getElementById('music-toggle');
+let musicOn = false;
+musicBtn?.addEventListener('click', async () => {
+  if (!audio) return;
+  try {
+    if (!musicOn) {
+      audio.volume = 0.35;
+      await audio.play();
+      musicOn = true;
+      musicBtn.classList.add('on');
+      musicBtn.querySelector('.music-label').textContent = 'On';
+    } else {
+      audio.pause();
+      musicOn = false;
+      musicBtn.classList.remove('on');
+      musicBtn.querySelector('.music-label').textContent = 'Sound';
+    }
+  } catch (err) {
+    alert('Add a file at assets/bg-music.mp3 (browsers block autoplay until you click Sound).');
+  }
+});
+
 document.getElementById('year').textContent = new Date().getFullYear();
 
 const counter = document.querySelector('[data-count]');

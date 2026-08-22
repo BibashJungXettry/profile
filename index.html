@@ -12,6 +12,15 @@
 </head>
 <body>
   <div class="bg-glow"></div>
+  <div class="bg-grid"></div>
+  <audio id="bg-audio" loop preload="none">
+    <!-- Optional: put a royalty-free track at assets/bg-music.mp3 -->
+    <source src="assets/bg-music.mp3" type="audio/mpeg" />
+  </audio>
+  <button type="button" id="music-toggle" class="music-fab" aria-label="Toggle background music" title="Background music">
+    <span class="music-icon">♪</span>
+    <span class="music-label">Sound</span>
+  </button>
   <header class="nav">
     <a class="brand" href="#home">BJX</a>
     <nav>
@@ -23,7 +32,7 @@
     </nav>
   </header>
   <main>
-    <section id="home" class="hero">
+    <section id="home" class="hero reveal show">
       <div class="hero-card">
         <img class="avatar" src="assets/profile.jpg" alt="Bibash Jung Xettry" onerror="this.src='assets/avatar-fallback.svg'" />
         <div class="hero-text">
@@ -39,7 +48,7 @@
       </div>
     </section>
 
-    <section id="stats" class="section">
+    <section id="stats" class="section reveal">
       <h2>At a glance</h2>
       <div class="stats">
         <article class="stat"><span class="stat-num" data-count="2000">0</span><span class="stat-label">+ community vouches</span></article>
@@ -49,7 +58,7 @@
       </div>
     </section>
 
-    <section id="about" class="section">
+    <section id="about" class="section reveal">
       <h2>About</h2>
       <div class="about-grid">
         <div class="card">
@@ -69,7 +78,7 @@
       </div>
     </section>
 
-    <section id="services" class="section">
+    <section id="services" class="section reveal">
       <h2>Services</h2>
       <div class="about-grid three">
         <div class="card"><h3>ID selling</h3><p>List and move accounts when you need cash. Timeline depends on demand, price, and how quickly you need the sale.</p></div>
@@ -82,7 +91,7 @@
       </div>
     </section>
 
-    <section id="vouches" class="section">
+    <section id="vouches" class="section reveal">
       <div class="section-head">
         <h2>Vouches</h2>
         <p class="muted">All vouch screenshots from the vouches folder. Click any card to enlarge.</p>
@@ -98,7 +107,7 @@
       <div id="vouch-grid" class="vouch-grid"><p class="muted loading">Loading vouches…</p></div>
     </section>
 
-    <section id="contact" class="section">
+    <section id="contact" class="section reveal">
       <h2>Contact</h2>
       <div class="contact-grid">
         <a class="contact-card" href="https://www.facebook.com/BibashJungXettry" target="_blank" rel="noopener">
