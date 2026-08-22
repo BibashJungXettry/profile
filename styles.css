@@ -339,7 +339,7 @@ a.contact-card:hover .c-arrow{transform:translate(3px,-3px); color:var(--ember-h
   .contact-grid{grid-template-columns:repeat(2,1fr);}
 }
 
-@media (max-width:760px){
+@media (max-width:900px){
   .nav-links{
     position:fixed; top:66px; left:16px; right:16px; flex-direction:column; gap:0;
     background:rgba(15,18,26,.97); border:1px solid var(--line); border-radius:16px; padding:8px;

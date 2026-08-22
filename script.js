@@ -1,6 +1,17 @@
 /* ===================================================================
    BJX site — nav, motion, ambient sound, ember particles, vouches
    =================================================================== */
+
+// Safety net: if any script error stops execution partway through, don't
+// leave the page permanently invisible — force every .reveal element
+// visible after a short delay no matter what.
+window.addEventListener('error', () => {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('show'));
+});
+setTimeout(() => {
+  document.querySelectorAll('.reveal:not(.show)').forEach(el => el.classList.add('show'));
+}, 2500);
+
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- nav scroll state + active link ---------- */
@@ -356,18 +367,33 @@ function buildTicker(list) {
 }
 
 async function loadVouches() {
+  // Primary path: data baked into vouches-data.js (window.VOUCH_DATA).
+  // This works whether the site is opened by double-clicking index.html
+  // or served from a real web server — fetch() of a local JSON file is
+  // blocked by browsers under the file:// protocol, so we don't rely on it.
+  if (Array.isArray(window.VOUCH_DATA) && window.VOUCH_DATA.length) {
+    finishLoad(window.VOUCH_DATA);
+    return;
+  }
+  // Fallback path: fetch vouches.json (useful if vouches-data.js is ever
+  // regenerated separately or missing, and the site is served over http).
   try {
     const res = await fetch('vouches.json', { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
-    allVouches = Array.isArray(data) ? data : [];
-    if (fileCountEl) fileCountEl.textContent = String(allVouches.length);
-    filtered = allVouches.slice();
-    renderPage();
-    buildTicker(allVouches);
+    finishLoad(Array.isArray(data) ? data : []);
   } catch (e) {
-    grid.innerHTML = '<p class="muted">Could not load vouches.json (' + escapeHtml(e.message) + ').</p>';
+    grid.innerHTML = '<p class="muted">Could not load the vouches. Make sure vouches-data.js is in the same folder as index.html.</p>';
     if (tickerTrack) tickerTrack.innerHTML = '<span class="ticker-loading">Vouch feed unavailable.</span>';
   }
 }
+
+function finishLoad(data) {
+  allVouches = data;
+  if (fileCountEl) fileCountEl.textContent = String(allVouches.length);
+  filtered = allVouches.slice();
+  renderPage();
+  buildTicker(allVouches);
+}
+
 loadVouches();
