@@ -295,6 +295,35 @@ main{position:relative; z-index:1;}
 .vouch-date{display:inline-block; margin-top:6px; font-size:.74rem; color:var(--verify);}
 .loading{padding:40px 0; text-align:center; width:100%;}
 
+/* ---------- extra proof blocks (below vouches) ---------- */
+.proof-extra{margin-top:48px; display:flex; flex-direction:column; gap:20px;}
+.proof-card{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:28px 26px; transition:border-color .25s var(--ease);
+}
+.proof-card:hover{border-color:#37415a;}
+.proof-card h3{margin:0 0 10px; display:flex; align-items:center; gap:10px; font-size:1.15rem;}
+.proof-card h3 .proof-tag{
+  display:inline-block; padding:3px 10px; border-radius:999px; font-size:.68rem; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase; font-family:var(--disp);
+  background:rgba(79,231,193,.12); color:var(--verify);
+}
+.proof-card p{margin:0 0 .75em; color:var(--mute); font-size:.95rem;}
+.proof-card p:last-child{margin-bottom:0;}
+.proof-card ul.proof-list{list-style:none; margin:12px 0 0; padding:0;}
+.proof-card ul.proof-list li{
+  position:relative; padding:9px 0 9px 22px; border-top:1px solid var(--line);
+  color:var(--mute); font-size:.92rem;
+}
+.proof-card ul.proof-list li:first-child{border-top:none; padding-top:2px;}
+.proof-card ul.proof-list li::before{
+  content:''; position:absolute; left:0; top:18px; width:8px; height:2px; background:var(--ember-hi);
+}
+.proof-card ul.proof-list li strong{color:var(--text);}
+.proof-card.warn{border-color:rgba(255,90,46,.35); background:linear-gradient(135deg,rgba(255,90,46,.06),transparent 55%);}
+.proof-card.warn h3 .proof-tag{background:rgba(255,90,46,.14); color:var(--ember-hi);}
+.proof-card.docs{border-color:rgba(79,231,193,.28); background:linear-gradient(135deg,rgba(79,231,193,.05),transparent 55%);}
+
 /* ---------- contact ---------- */
 .contact-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
 .contact-card{
@@ -359,4 +388,32 @@ a.contact-card:hover .c-arrow{transform:translate(3px,-3px); color:var(--ember-h
   .contact-grid{grid-template-columns:1fr;}
   .ticker-label{display:none;}
   .section{padding-top:72px;}
+  /* Mobile vouch bar: ~5 small thumbs per row, compact floating strip */
+  .vouch-grid{
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+    padding-bottom:12px;
+  }
+  .vouch{
+    border-radius:8px;
+  }
+  .vouch-img-wrap{aspect-ratio:1/1;}
+  .vouch-body{display:none;} /* keep the floating image strip clean on phones */
+  .vouch:hover{transform:none; box-shadow:none;}
+  .vouch:hover .vouch-img-wrap img{transform:none;}
+  .vouch-toolbar{gap:12px; margin-bottom:18px;}
+  .search-wrap{min-width:0; max-width:none; flex:1 1 100%;}
+  .pager{width:100%; justify-content:space-between;}
+  .proof-card{padding:22px 18px;}
+}
+
+@media (max-width:400px){
+  .vouch-grid{grid-template-columns:repeat(5,1fr); gap:6px;}
+}
+
+@media (min-width:561px) and (max-width:760px){
+  .vouch-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:12px;}
+  .vouch-body{padding:10px 12px;}
+  .vouch-body h4{font-size:.85rem;}
+  .vouch-body p{font-size:.75rem;}
 }
