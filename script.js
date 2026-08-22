@@ -350,7 +350,10 @@ function renderPage() {
       if (wrap) wrap.addEventListener('click', () => openLb(wrap.dataset.src, ((v.name || '') + ' — ' + (v.note || '')).trim()));
     });
   }
-  if (pageInfo) pageInfo.textContent = 'Page ' + (page + 1) + ' / ' + totalPages + ' · ' + filtered.length + ' vouches';
+  if (pageInfo) {
+    pageInfo.innerHTML = 'Page ' + (page + 1) + ' / ' + totalPages +
+      '<span class="vouch-count-suffix"> · ' + filtered.length + ' vouches</span>';
+  }
 }
 
 document.getElementById('prev-page')?.addEventListener('click', () => { page -= 1; renderPage(); document.getElementById('vouches')?.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' }); });

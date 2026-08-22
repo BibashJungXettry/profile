@@ -403,8 +403,15 @@ a.contact-card:hover .c-arrow{transform:translate(3px,-3px); color:var(--ember-h
   .vouch:hover .vouch-img-wrap img{transform:none;}
   .vouch-toolbar{gap:12px; margin-bottom:18px;}
   .search-wrap{min-width:0; max-width:none; flex:1 1 100%;}
-  .pager{width:100%; justify-content:space-between;}
+  .pager{width:100%; justify-content:center; flex-wrap:wrap; gap:10px 16px;}
+  #page-info{order:3; flex:1 1 100%; text-align:center; font-size:.82rem;}
+  .pager #prev-page{order:1;}
+  .pager #next-page{order:2;}
   .proof-card{padding:22px 18px;}
+}
+
+@media (max-width:480px){
+  .vouch-count-suffix{display:none;}
 }
 
 @media (max-width:400px){
